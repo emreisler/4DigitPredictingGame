@@ -6,22 +6,28 @@ from AiPlayer import Ai
 
 def main():
 
-
-    #for i in range(90):
+    toplamHamleSayisi = 0
+    #totalGAmes = 50
+    #for i in range(totalGAmes):
     hamle = 0
     aiPlayer = Ai()
+    human_number = input("Enter your number : ")
+    aiPlayer.targetNumber = (int(human_number[0]),int(human_number[1]),int(human_number[2]),int(human_number[3]))
     while not aiPlayer.gameOver:
         hamle += 1
         prediction = aiPlayer.predict()
-        print("PREDICTION : ",prediction)
-        hint = aiPlayer.giveHint(prediction)
-        print(hint)
+        print("PREDICTION : ",prediction[0],prediction[1],prediction[2],prediction[3])
+        hint = aiPlayer.giveHint(prediction,aiPlayer.targetNumber)
+        print("HINT : ", hint[0],"a ",hint[1],"b")
         aiPlayer.evaluate(hint,prediction)
-        print(aiPlayer.tumOlasiliklar)
+        #print(aiPlayer.tumOlasiliklar)
         aiPlayer.normalize()
         #aiPlayer.evaluate(prediction)
-    print("HAMLE SAYISI : ", hamle)
+        aiPlayer.zeroPossibilitesList()
+    print("TOTAL MOVES : ", hamle)
     print("GAME OVER")
+    toplamHamleSayisi += hamle
+    #print("ORTALAMA KAÇ HAMLEDE BULDU : ", toplamHamleSayisi / totalGAmes )
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
